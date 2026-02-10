@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send a Valentine! 💌</title>
+    <title>Send a Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,136 +14,180 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #ffe6f0 0%, #ffb3d1 100%);
+            background: #faf8f5;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             padding: 2rem;
         }
         
         .container {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(214, 51, 132, 0.2);
-            text-align: center;
-            max-width: 500px;
+            max-width: 420px;
             width: 100%;
+            text-align: center;
+        }
+        
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
         }
         
         h1 {
-            color: #d63384;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
         }
         
         .subtitle {
-            color: #888;
-            margin-bottom: 2rem;
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
         }
         
-        .hearts {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
         }
         
         label {
             display: block;
-            text-align: left;
-            color: #666;
-            margin-bottom: 0.5rem;
+            color: #333;
+            font-size: 0.85rem;
             font-weight: 500;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
         }
         
         input {
             width: 100%;
-            padding: 1rem;
+            padding: 0.9rem 1rem;
             font-size: 1rem;
-            border: 2px solid #ffb3d1;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
+            font-family: inherit;
+            border: 1px solid #e0dcd5;
+            border-radius: 8px;
+            background: #fff;
             outline: none;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
         
         input:focus {
-            border-color: #ff69b4;
+            border-color: #c9a87c;
+            box-shadow: 0 0 0 3px rgba(201, 168, 124, 0.1);
+        }
+        
+        input::placeholder {
+            color: #aaa;
         }
         
         .btn {
             width: 100%;
             padding: 1rem 2rem;
-            font-size: 1.2rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            font-weight: 500;
+            letter-spacing: 0.03em;
             border: none;
-            border-radius: 50px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
-            background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 23, 68, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: #1a1a1a;
+            color: #fff;
+            transition: background 0.2s, transform 0.1s;
         }
         
         .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(255, 23, 68, 0.6);
+            background: #333;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
         }
         
         .result {
             margin-top: 2rem;
             display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .result.show {
             display: block;
         }
         
+        .result-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+        
         .link-box {
-            background: #fff5f8;
-            border: 2px dashed #ffb3d1;
-            border-radius: 10px;
+            background: #fff;
+            border: 1px solid #e0dcd5;
+            border-radius: 8px;
             padding: 1rem;
             word-break: break-all;
             margin-bottom: 1rem;
-            color: #d63384;
-            font-family: monospace;
+            color: #1a1a1a;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.85rem;
+            text-align: left;
         }
         
         .btn-copy {
-            background: #28a745;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            background: #c9a87c;
         }
         
         .btn-copy:hover {
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+            background: #b8956a;
         }
         
         .copied {
-            color: #28a745;
-            margin-top: 0.5rem;
-            font-weight: bold;
+            color: #6b8e6b;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .footer {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="hearts">💌💕💌</div>
-        <h1>Send a Valentine!</h1>
-        <p class="subtitle">Generate a link to send to your special someone</p>
+        <div class="icon">♡</div>
+        <h1>Send a Valentine</h1>
+        <p class="subtitle">Create a personalized link for someone special</p>
         
-        <label for="name">Their name (optional)</label>
-        <input type="text" id="name" placeholder="e.g. Alex">
+        <div class="form-group">
+            <label>Their name</label>
+            <input type="text" id="name" placeholder="Optional">
+        </div>
         
-        <button class="btn" onclick="generateLink()">Get Link to Share 💖</button>
+        <button class="btn" onclick="generateLink()">Generate Link</button>
         
         <div class="result" id="result">
-            <p style="margin-bottom: 0.5rem; color: #666;">Share this link:</p>
+            <p class="result-label">Your link</p>
             <div class="link-box" id="linkBox"></div>
-            <button class="btn btn-copy" onclick="copyLink()">Copy Link 📋</button>
-            <p class="copied" id="copied" style="display: none;">Copied! 💕</p>
+            <button class="btn btn-copy" onclick="copyLink()">Copy to Clipboard</button>
+            <p class="copied" id="copied" style="display: none;">Copied!</p>
         </div>
+        
+        <p class="footer">They won't be able to say no ♡</p>
     </div>
 
     <script>
