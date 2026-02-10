@@ -123,11 +123,17 @@
     <div class="sass-message" id="sassMessage"></div>
 
     <script>
-        // Personalize with name from URL
+        // Only Muskan is allowed here 😏
         const params = new URLSearchParams(window.location.search);
         const name = params.get('name');
-        if (name) {
-            document.getElementById('question').textContent = `${name}, will you be my Valentine?`;
+        const allowedName = 'Muskan';
+        
+        if (name && name.toLowerCase() === allowedName.toLowerCase()) {
+            document.getElementById('question').textContent = `${allowedName}, will you be my Valentine?`;
+        } else if (name) {
+            // Someone's trying to be sneaky!
+            document.getElementById('question').innerHTML = `Hmmm I see what you're doing... 🤨<br><br><span style="font-size: 1.2rem;">You can't change my name, to me 😏</span>`;
+            document.getElementById('question').style.fontSize = '1.8rem';
         }
 
         // Yes button goes to success page
