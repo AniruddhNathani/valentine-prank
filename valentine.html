@@ -60,7 +60,7 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
         }
         
         .btn-yes {
@@ -76,16 +76,38 @@
         }
         
         .btn-no {
-            background: #e8e4de;
-            color: #666;
-            padding: 0.8rem 2rem;
-            font-size: 0.9rem;
+            background: #c9a87c;
+            color: #fff;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
             position: absolute;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(201, 168, 124, 0.3);
         }
         
         .btn-no:hover {
-            background: #ddd8d0;
+            background: #b8956a;
+        }
+        
+        .sass-message {
+            position: fixed;
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            font-weight: 500;
+            padding: 0.8rem 1.5rem;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .sass-message.show {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -98,6 +120,7 @@
         </div>
     </div>
     <button class="btn btn-no" id="noBtn">No</button>
+    <div class="sass-message" id="sassMessage"></div>
 
     <script>
         // Personalize with name from URL
@@ -112,13 +135,57 @@
             window.location.href = 'success.html';
         });
 
-        // Dodging No button logic 😈
+        // Sassy messages that rotate randomly
+        const sassyMessages = [
+            "Are you sure? 🤔",
+            "Wanna reconsider?",
+            "Pakka? 😏",
+            "Soch le ek baar aur...",
+            "Really? REALLY?",
+            "That's not the right answer!",
+            "Try again bestie 💅",
+            "Nope, wrong button",
+            "You don't mean that!",
+            "Arre yaar, Yes daba na",
+            "I'll keep running 🏃",
+            "You can't catch me!",
+            "Nice try though 😂",
+            "Galat jawab!",
+            "Phir se socho...",
+            "Hint: the other button",
+            "I don't think so!",
+            "Nahi nahi, Yes karo",
+        ];
+        
+        let messageIndex = 0;
         const noBtn = document.getElementById('noBtn');
+        const sassMessage = document.getElementById('sassMessage');
+        
+        function showSassyMessage(x, y) {
+            // Pick random message
+            const randomIndex = Math.floor(Math.random() * sassyMessages.length);
+            sassMessage.textContent = sassyMessages[randomIndex];
+            
+            // Position near the button
+            sassMessage.style.left = (x - 50) + 'px';
+            sassMessage.style.top = (y - 60) + 'px';
+            
+            // Show it
+            sassMessage.classList.add('show');
+            
+            // Hide after a bit
+            setTimeout(() => {
+                sassMessage.classList.remove('show');
+            }, 1500);
+        }
         
         function dodgeButton(e) {
             const btn = noBtn.getBoundingClientRect();
             const btnCenterX = btn.left + btn.width / 2;
             const btnCenterY = btn.top + btn.height / 2;
+            
+            // Show sassy message
+            showSassyMessage(btnCenterX, btn.top);
             
             // Direction away from mouse
             let dx = btnCenterX - e.clientX;
@@ -143,8 +210,12 @@
             newX = Math.max(20, Math.min(newX, maxX));
             newY = Math.max(20, Math.min(newY, maxY));
             
+            // Random rotation for extra sass
+            const rotation = (Math.random() - 0.5) * 30;
+            
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
+            noBtn.style.transform = `rotate(${rotation}deg)`;
         }
         
         // Dodge on hover and click
