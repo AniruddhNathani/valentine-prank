@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send a Valentine! 💌</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe6f0 0%, #ffb3d1 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 2rem;
+        }
+        
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(214, 51, 132, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #d63384;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #888;
+            margin-bottom: 2rem;
+        }
+        
+        .hearts {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            text-align: left;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid #ffb3d1;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus {
+            border-color: #ff69b4;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 23, 68, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(255, 23, 68, 0.6);
+        }
+        
+        .result {
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .link-box {
+            background: #fff5f8;
+            border: 2px dashed #ffb3d1;
+            border-radius: 10px;
+            padding: 1rem;
+            word-break: break-all;
+            margin-bottom: 1rem;
+            color: #d63384;
+            font-family: monospace;
+        }
+        
+        .btn-copy {
+            background: #28a745;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+        
+        .btn-copy:hover {
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+        }
+        
+        .copied {
+            color: #28a745;
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hearts">💌💕💌</div>
+        <h1>Send a Valentine!</h1>
+        <p class="subtitle">Generate a link to send to your special someone</p>
+        
+        <label for="name">Their name (optional)</label>
+        <input type="text" id="name" placeholder="e.g. Alex">
+        
+        <button class="btn" onclick="generateLink()">Get Link to Share 💖</button>
+        
+        <div class="result" id="result">
+            <p style="margin-bottom: 0.5rem; color: #666;">Share this link:</p>
+            <div class="link-box" id="linkBox"></div>
+            <button class="btn btn-copy" onclick="copyLink()">Copy Link 📋</button>
+            <p class="copied" id="copied" style="display: none;">Copied! 💕</p>
+        </div>
+    </div>
+
+    <script>
+        let generatedLink = '';
+        
+        function generateLink() {
+            const name = document.getElementById('name').value.trim();
+            const baseUrl = window.location.href.replace('index.html', '').replace(/\/$/, '');
+            
+            if (name) {
+                generatedLink = `${baseUrl}/valentine.html?name=${encodeURIComponent(name)}`;
+            } else {
+                generatedLink = `${baseUrl}/valentine.html`;
+            }
+            
+            document.getElementById('linkBox').textContent = generatedLink;
+            document.getElementById('result').classList.add('show');
+            document.getElementById('copied').style.display = 'none';
+        }
+        
+        function copyLink() {
+            navigator.clipboard.writeText(generatedLink).then(() => {
+                document.getElementById('copied').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('copied').style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

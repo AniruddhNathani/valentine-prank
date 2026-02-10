@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe6f0 0%, #ffb3d1 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        h1 {
+            color: #d63384;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .hearts {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-yes {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 23, 68, 0.4);
+        }
+        
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 23, 68, 0.6);
+        }
+        
+        .btn-no {
+            background: #ccc;
+            color: #666;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-no:hover {
+            background: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hearts">💕💖💕</div>
+        <h1 id="question">Will you be my Valentine?</h1>
+        <div class="buttons">
+            <button class="btn btn-yes" id="yesBtn">Yes! 💖</button>
+        </div>
+    </div>
+    <button class="btn btn-no" id="noBtn">No</button>
+
+    <script>
+        // Personalize with name from URL
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name');
+        if (name) {
+            document.getElementById('question').textContent = `Hey ${name}, will you be my Valentine?`;
+        }
+
+        // Yes button goes to success page
+        document.getElementById('yesBtn').addEventListener('click', () => {
+            window.location.href = 'success.html';
+        });
+
+        // Dodging No button logic 😈
+        const noBtn = document.getElementById('noBtn');
+        
+        function dodgeButton(e) {
+            const btn = noBtn.getBoundingClientRect();
+            const btnCenterX = btn.left + btn.width / 2;
+            const btnCenterY = btn.top + btn.height / 2;
+            
+            // Direction away from mouse
+            let dx = btnCenterX - e.clientX;
+            let dy = btnCenterY - e.clientY;
+            
+            // If mouse is right on button, pick random direction
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 10) {
+                dx = Math.random() - 0.5;
+                dy = Math.random() - 0.5;
+            }
+            
+            // Normalize and move 150-250px away
+            const len = Math.sqrt(dx * dx + dy * dy);
+            const moveDistance = 150 + Math.random() * 100;
+            let newX = btnCenterX + (dx / len) * moveDistance - btn.width / 2;
+            let newY = btnCenterY + (dy / len) * moveDistance - btn.height / 2;
+            
+            // Keep within viewport
+            const maxX = window.innerWidth - btn.width - 20;
+            const maxY = window.innerHeight - btn.height - 20;
+            newX = Math.max(20, Math.min(newX, maxX));
+            newY = Math.max(20, Math.min(newY, maxY));
+            
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+        }
+        
+        // Dodge on hover and click
+        noBtn.addEventListener('mouseenter', dodgeButton);
+        noBtn.addEventListener('click', dodgeButton);
+        
+        // Initial position
+        noBtn.style.left = (window.innerWidth / 2 + 100) + 'px';
+        noBtn.style.top = (window.innerHeight / 2) + 'px';
+    </script>
+</body>
+</html>
