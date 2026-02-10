@@ -127,13 +127,18 @@
         const params = new URLSearchParams(window.location.search);
         const name = params.get('name');
         const allowedName = 'Muskan';
+        const myNames = ['ani', 'aniruddh', 'aniruddh nathani'];
         
         if (name && name.toLowerCase() === allowedName.toLowerCase()) {
             document.getElementById('question').textContent = `${allowedName}, will you be my Valentine?`;
-        } else if (name) {
-            // Someone's trying to be sneaky!
+        } else if (name && myNames.includes(name.toLowerCase())) {
+            // She's trying to put my name! 
             document.getElementById('question').innerHTML = `Hmmm I see what you're doing... 🤨<br><br><span style="font-size: 1.2rem;">You can't change my name, to me 😏</span>`;
             document.getElementById('question').style.fontSize = '1.8rem';
+        } else if (name) {
+            // Some other name
+            document.getElementById('question').innerHTML = `Hmmm I see what you're doing... 🤨`;
+            document.getElementById('question').style.fontSize = '2rem';
         }
 
         // Yes button goes to success page
