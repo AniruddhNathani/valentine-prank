@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yay! 💖</title>
+    <title>♡</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,55 +14,54 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #ffe6f0 0%, #ffb3d1 100%);
+            background: #faf8f5;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             overflow: hidden;
         }
         
         .container {
             text-align: center;
             padding: 2rem;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.6s ease;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        h1 {
-            color: #d63384;
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: bounce 0.6s ease infinite alternate;
-        }
-        
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-        
-        .message {
-            color: #e91e63;
-            font-size: 1.8rem;
+        .heart {
+            font-size: 5rem;
             margin-bottom: 2rem;
-        }
-        
-        .big-heart {
-            font-size: 8rem;
-            animation: pulse 1s ease infinite;
+            animation: pulse 2s ease infinite;
         }
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.08); }
         }
         
-        .hearts-rain {
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            font-size: 3rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .message {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+        
+        .hearts-float {
             position: fixed;
             top: 0;
             left: 0;
@@ -72,40 +72,52 @@
             z-index: -1;
         }
         
-        .falling-heart {
+        .floating-heart {
             position: absolute;
-            top: -50px;
-            animation: fall linear infinite;
-            font-size: 2rem;
+            opacity: 0.15;
+            animation: float linear infinite;
+            font-size: 1.5rem;
         }
         
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
+        @keyframes float {
+            0% { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.15;
+            }
+            90% {
+                opacity: 0.15;
+            }
+            100% { 
+                transform: translateY(-100px) rotate(360deg); 
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="hearts-rain" id="heartsRain"></div>
+    <div class="hearts-float" id="heartsFloat"></div>
     
     <div class="container">
-        <h1>Yay! 💖</h1>
-        <p class="message">You made my day!</p>
-        <div class="big-heart">💕</div>
+        <div class="heart">♡</div>
+        <h1>I knew you'd say yes</h1>
+        <p class="message">You just made someone very happy</p>
     </div>
 
     <script>
-        // Create falling hearts
-        const heartsRain = document.getElementById('heartsRain');
-        const hearts = ['💕', '💖', '❤️', '💗', '💓', '💘'];
+        // Create floating hearts
+        const heartsFloat = document.getElementById('heartsFloat');
         
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 15; i++) {
             const heart = document.createElement('div');
-            heart.className = 'falling-heart';
-            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.className = 'floating-heart';
+            heart.textContent = '♡';
             heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (3 + Math.random() * 4) + 's';
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            heartsRain.appendChild(heart);
+            heart.style.animationDuration = (8 + Math.random() * 6) + 's';
+            heart.style.animationDelay = Math.random() * 8 + 's';
+            heartsFloat.appendChild(heart);
         }
     </script>
 </body>

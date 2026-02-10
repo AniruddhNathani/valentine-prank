@@ -1,0 +1,2 @@
+base = {workspace = nathaani_creative_email; };
+packages = { };
