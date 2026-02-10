@@ -18,47 +18,127 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             font-family: 'Inter', -apple-system, sans-serif;
-            overflow: hidden;
+            padding: 2rem;
+            overflow-x: hidden;
         }
         
         .container {
+            max-width: 600px;
+            width: 100%;
             text-align: center;
-            padding: 2rem;
-            animation: fadeIn 0.6s ease;
+            animation: fadeIn 0.8s ease;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .heart {
-            font-size: 5rem;
-            margin-bottom: 2rem;
-            animation: pulse 2s ease infinite;
+        .photo-frame {
+            width: 280px;
+            height: 350px;
+            margin: 0 auto 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 8px solid #fff;
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         h1 {
             font-family: 'Playfair Display', Georgia, serif;
             font-weight: 600;
-            font-size: 3rem;
+            font-size: 2.2rem;
             color: #1a1a1a;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
         }
         
-        .message {
+        .counter {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .counter-label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+        
+        .counter-time {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+        
+        .counter-time span {
+            color: #c9a87c;
+        }
+        
+        .distance {
+            font-size: 1.1rem;
             color: #666;
-            font-size: 1.2rem;
-            font-weight: 300;
-            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .distance strong {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        
+        .message {
+            font-size: 1.15rem;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .math-love {
+            font-family: 'SF Mono', Monaco, monospace;
+            background: #fff;
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #c9a87c;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .quote {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #666;
+            padding: 1.5rem;
+            border-left: 3px solid #c9a87c;
+            text-align: left;
+            margin: 2rem 0;
+            background: #fff;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .heart {
+            font-size: 2rem;
+            margin-top: 1rem;
+            animation: pulse 2s ease infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
         
         .hearts-float {
@@ -74,26 +154,16 @@
         
         .floating-heart {
             position: absolute;
-            opacity: 0.15;
+            opacity: 0.1;
             animation: float linear infinite;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
         
         @keyframes float {
-            0% { 
-                transform: translateY(100vh) rotate(0deg); 
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.15;
-            }
-            90% {
-                opacity: 0.15;
-            }
-            100% { 
-                transform: translateY(-100px) rotate(360deg); 
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.1; }
+            90% { opacity: 0.1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
@@ -101,22 +171,75 @@
     <div class="hearts-float" id="heartsFloat"></div>
     
     <div class="container">
+        <h1>I knew you'd say yes ♡</h1>
+        
+        <div class="photo-frame">
+            <img src="us.jpg" alt="Us">
+        </div>
+        
+        <div class="counter">
+            <div class="counter-label">Since September 3rd, 6:26 AM</div>
+            <div class="counter-time" id="counter">Loading...</div>
+        </div>
+        
+        <p class="distance">
+            <strong>2,847 miles</strong> between Seattle & Buffalo
+        </p>
+        
+        <p class="message">
+            <span id="seconds">0</span> seconds of missing you.<br>
+            <span id="seconds2">0</span> seconds of loving you more.
+        </p>
+        
+        <div class="math-love">
+            Love = e<sup>(days since we met)</sup> 📈
+        </div>
+        
+        <div class="quote">
+            "Every timezone between us just means more hours in the day to think about you."
+        </div>
+        
+        <p class="message">
+            My love for you is compounding exponentially.<br>
+            Distance is just a number. You're worth every mile.
+        </p>
+        
         <div class="heart">♡</div>
-        <h1>I knew you'd say yes</h1>
-        <p class="message">You just made someone very happy</p>
     </div>
 
     <script>
-        // Create floating hearts
-        const heartsFloat = document.getElementById('heartsFloat');
+        // September 3, 2024 at 6:26 AM (assuming your local time)
+        const startDate = new Date('2024-09-03T06:26:00');
         
-        for (let i = 0; i < 15; i++) {
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const totalSeconds = Math.floor(diff / 1000);
+            
+            document.getElementById('counter').innerHTML = 
+                `<span>${days}</span> days, <span>${hours}</span> hrs, <span>${minutes}</span> min, <span>${seconds}</span> sec`;
+            
+            document.getElementById('seconds').textContent = totalSeconds.toLocaleString();
+            document.getElementById('seconds2').textContent = totalSeconds.toLocaleString();
+        }
+        
+        updateCounter();
+        setInterval(updateCounter, 1000);
+        
+        // Floating hearts
+        const heartsFloat = document.getElementById('heartsFloat');
+        for (let i = 0; i < 12; i++) {
             const heart = document.createElement('div');
             heart.className = 'floating-heart';
             heart.textContent = '♡';
             heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (8 + Math.random() * 6) + 's';
-            heart.style.animationDelay = Math.random() * 8 + 's';
+            heart.style.animationDuration = (10 + Math.random() * 8) + 's';
+            heart.style.animationDelay = Math.random() * 10 + 's';
             heartsFloat.appendChild(heart);
         }
     </script>
